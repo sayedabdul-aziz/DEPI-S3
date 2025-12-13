@@ -1,8 +1,11 @@
+enum Gender { Male, Female }
+
+
 class Person {
   String? _fName;
   String? _lName;
   int? _age;
-  String? gender;
+  Gender? gender;
 
   void setFName(String name) {
     _fName = name;
