@@ -4,7 +4,7 @@ import 'package:greenmart/core/functions/navigations.dart';
 import 'package:greenmart/core/styles/text_styles.dart';
 import 'package:greenmart/core/widgets/custom_svg_picture.dart';
 import 'package:greenmart/core/widgets/main_button.dart';
-import 'package:greenmart/features/auth/page/login_screen.dart';
+import 'package:greenmart/features/main/main_app_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -50,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                 MainButton(
                   text: 'Get Started',
                   onPressed: () {
-                    pushReplacement(context, LoginScreen());
+                    pushReplacement(context, MainAppScreen());
                   },
                 ),
               ],

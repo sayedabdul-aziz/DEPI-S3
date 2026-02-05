@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:greenmart/core/styles/app_colors.dart';
-import 'package:greenmart/core/styles/text_styles.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -8,36 +6,31 @@ class CustomTextField extends StatelessWidget {
     required this.hint,
     this.prefixIcon,
     this.suffixIcon,
+    this.validator,
+    this.keyboardType,
+    this.enabled = true,
+    this.onTap,
   });
   final String hint;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final bool enabled;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enabled,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hint,
-        hintStyle: TextStyles.button.copyWith(color: AppColors.greyColor),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.primaryColor),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.primaryColor),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.errorColor),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.errorColor),
-        ),
       ),
+      validator: validator,
+      onTap: onTap,
     );
   }
 }
