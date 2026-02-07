@@ -4,8 +4,8 @@ import 'package:greenmart/core/styles/text_styles.dart';
 import 'package:greenmart/features/home/data/product_model.dart';
 import 'package:greenmart/features/home/widgets/item_card.dart';
 
-class ExclusiveOfferBuilder extends StatelessWidget {
-  const ExclusiveOfferBuilder({super.key});
+class AllProductsBuilder extends StatelessWidget {
+  const AllProductsBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class ExclusiveOfferBuilder extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Exclusive Offer', style: TextStyles.title),
+              Text('All Products', style: TextStyles.title),
               TextButton(
                 onPressed: () {},
                 child: Text(
@@ -30,19 +30,20 @@ class ExclusiveOfferBuilder extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
-          height: 270,
-          child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return ItemCard(model: offerProducts[index]);
-            },
-            separatorBuilder: (context, index) {
-              return SizedBox(width: 20);
-            },
-            itemCount: offerProducts.length,
+        GridView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisExtent: 300,
+            crossAxisSpacing: 10,
           ),
+          itemBuilder: (context, index) {
+            return ItemCard(model: allProducts[index]);
+          },
+
+          itemCount: allProducts.length,
         ),
       ],
     );

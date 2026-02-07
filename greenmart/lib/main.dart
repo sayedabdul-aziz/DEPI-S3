@@ -22,18 +22,23 @@ class MainApp extends StatelessWidget {
           onSurface: AppColors.blackColor,
           seedColor: AppColors.primaryColor,
         ),
-        appBarTheme: AppBarTheme(backgroundColor: AppColors.backgroundColor),
+        appBarTheme: AppBarTheme(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: AppColors.backgroundColor,
+        ),
+        dividerColor: Colors.transparent,
+        dividerTheme: DividerThemeData(color: AppColors.borderColor),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           elevation: 0,
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.transparent,
           selectedItemColor: AppColors.primaryColor,
           unselectedItemColor: AppColors.greyColor,
-          selectedLabelStyle: TextStyles.small.copyWith(
+          selectedLabelStyle: TextStyles.caption2.copyWith(
             fontWeight: FontWeight.w600,
             height: 1.8,
           ),
-          unselectedLabelStyle: TextStyles.small.copyWith(
+          unselectedLabelStyle: TextStyles.caption2.copyWith(
             fontWeight: FontWeight.w600,
             height: 1.8,
           ),
@@ -41,7 +46,7 @@ class MainApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           fillColor: AppColors.accentColor,
           filled: true,
-          hintStyle: TextStyles.button.copyWith(color: AppColors.greyColor),
+          hintStyle: TextStyles.caption1.copyWith(color: AppColors.greyColor),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide.none,

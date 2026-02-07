@@ -24,70 +24,74 @@ class _MainAppScreenState extends State<MainAppScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[currentIndex],
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.only(top: 10),
-        decoration: BoxDecoration(
-          color: AppColors.backgroundColor,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, -5),
-              blurRadius: 10,
-              spreadRadius: 3,
-              color: Color(0xff555E58).withValues(alpha: 0.1),
+      bottomNavigationBar: _bottomNavBar(),
+    );
+  }
+
+  Container _bottomNavBar() {
+    return Container(
+      padding: EdgeInsets.only(top: 10),
+      decoration: BoxDecoration(
+        color: AppColors.backgroundColor,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, -5),
+            blurRadius: 10,
+            spreadRadius: 3,
+            color: Color(0xff555E58).withValues(alpha: 0.1),
+          ),
+        ],
+      ),
+      child: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: CustomSvgPicture(path: AppAssets.storeSvg),
+            activeIcon: CustomSvgPicture(
+              path: AppAssets.storeSvg,
+              color: AppColors.primaryColor,
             ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: CustomSvgPicture(path: AppAssets.storeSvg),
-              activeIcon: CustomSvgPicture(
-                path: AppAssets.storeSvg,
-                color: AppColors.primaryColor,
-              ),
-              label: 'Home',
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: CustomSvgPicture(path: AppAssets.exploreSvg),
+            activeIcon: CustomSvgPicture(
+              path: AppAssets.exploreSvg,
+              color: AppColors.primaryColor,
             ),
-            BottomNavigationBarItem(
-              icon: CustomSvgPicture(path: AppAssets.exploreSvg),
-              activeIcon: CustomSvgPicture(
-                path: AppAssets.exploreSvg,
-                color: AppColors.primaryColor,
-              ),
-              label: 'explore',
+            label: 'explore',
+          ),
+          BottomNavigationBarItem(
+            icon: CustomSvgPicture(path: AppAssets.cartSvg),
+            activeIcon: CustomSvgPicture(
+              path: AppAssets.cartSvg,
+              color: AppColors.primaryColor,
             ),
-            BottomNavigationBarItem(
-              icon: CustomSvgPicture(path: AppAssets.cartSvg),
-              activeIcon: CustomSvgPicture(
-                path: AppAssets.cartSvg,
-                color: AppColors.primaryColor,
-              ),
-              label: 'Cart',
+            label: 'Cart',
+          ),
+          BottomNavigationBarItem(
+            icon: CustomSvgPicture(path: AppAssets.heartSvg),
+            activeIcon: CustomSvgPicture(
+              path: AppAssets.heartSvg,
+              color: AppColors.primaryColor,
             ),
-            BottomNavigationBarItem(
-              icon: CustomSvgPicture(path: AppAssets.heartSvg),
-              activeIcon: CustomSvgPicture(
-                path: AppAssets.heartSvg,
-                color: AppColors.primaryColor,
-              ),
-              label: 'Favorites',
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: CustomSvgPicture(path: AppAssets.userSvg),
+            activeIcon: CustomSvgPicture(
+              path: AppAssets.userSvg,
+              color: AppColors.primaryColor,
             ),
-            BottomNavigationBarItem(
-              icon: CustomSvgPicture(path: AppAssets.userSvg),
-              activeIcon: CustomSvgPicture(
-                path: AppAssets.userSvg,
-                color: AppColors.primaryColor,
-              ),
-              label: 'Profile',
-            ),
-          ],
-        ),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }

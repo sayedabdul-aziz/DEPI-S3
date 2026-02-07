@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 40),
                   Text(
                     'Email',
-                    style: TextStyles.button.copyWith(
+                    style: TextStyles.caption1.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppColors.greyColor,
                     ),
@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 16),
                   Text(
                     'Password',
-                    style: TextStyles.button.copyWith(
+                    style: TextStyles.caption1.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppColors.greyColor,
                     ),
@@ -93,7 +93,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextButton(
                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                       onPressed: () {},
-                      child: Text('Forget Password?', style: TextStyles.button),
+                      child: Text(
+                        'Forget Password?',
+                        style: TextStyles.caption1,
+                      ),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -111,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Text(
                         "Don't have an account? ",
-                        style: TextStyles.button.copyWith(
+                        style: TextStyles.caption1.copyWith(
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -122,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: Text(
                           'Sign Up',
-                          style: TextStyles.button.copyWith(
+                          style: TextStyles.caption1.copyWith(
                             color: AppColors.primaryColor,
                             fontWeight: FontWeight.w500,
                           ),

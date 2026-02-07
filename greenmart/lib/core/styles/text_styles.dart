@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greenmart/core/styles/app_colors.dart';
 
 class TextStyles {
   static TextStyle headline = TextStyle(
@@ -15,7 +16,10 @@ class TextStyles {
 
   static TextStyle body = TextStyle(fontSize: 16);
 
-  static TextStyle button = TextStyle(fontSize: 14);
+  static TextStyle caption1 = TextStyle(fontSize: 14);
 
-  static TextStyle small = TextStyle(fontSize: 12);
+  static TextStyle caption2 = TextStyle(
+    fontSize: 12,
+    color: AppColors.greyColor,
+  );
 }

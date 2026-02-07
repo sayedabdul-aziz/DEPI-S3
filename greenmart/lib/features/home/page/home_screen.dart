@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:greenmart/core/constants/app_assets.dart';
 import 'package:greenmart/core/styles/app_colors.dart';
 import 'package:greenmart/core/widgets/custom_svg_picture.dart';
+import 'package:greenmart/features/home/widgets/all_products_builder.dart';
 import 'package:greenmart/features/home/widgets/best_selling_builder.dart';
 import 'package:greenmart/features/home/widgets/exclusive_offer_builder.dart';
 import 'package:greenmart/features/home/widgets/home_search_bar.dart';
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
             HomeSearchBar(),
             ExclusiveOfferBuilder(),
             BestSellingBuilder(),
+            AllProductsBuilder(),
           ],
         ),
       ),

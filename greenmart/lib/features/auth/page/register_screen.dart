@@ -38,7 +38,7 @@ class RegisterScreen extends StatelessWidget {
                 SizedBox(height: 40),
                 Text(
                   'Name',
-                  style: TextStyles.button.copyWith(
+                  style: TextStyles.caption1.copyWith(
                     fontWeight: FontWeight.w600,
                     color: AppColors.greyColor,
                   ),
@@ -48,7 +48,7 @@ class RegisterScreen extends StatelessWidget {
                 SizedBox(height: 16),
                 Text(
                   'Email',
-                  style: TextStyles.button.copyWith(
+                  style: TextStyles.caption1.copyWith(
                     fontWeight: FontWeight.w600,
                     color: AppColors.greyColor,
                   ),
@@ -61,7 +61,7 @@ class RegisterScreen extends StatelessWidget {
                 SizedBox(height: 16),
                 Text(
                   'Password',
-                  style: TextStyles.button.copyWith(
+                  style: TextStyles.caption1.copyWith(
                     fontWeight: FontWeight.w600,
                     color: AppColors.greyColor,
                   ),
@@ -77,7 +77,7 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     Text(
                       "Already have an account?",
-                      style: TextStyles.button.copyWith(
+                      style: TextStyles.caption1.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -88,7 +88,7 @@ class RegisterScreen extends StatelessWidget {
                       },
                       child: Text(
                         'Login',
-                        style: TextStyles.button.copyWith(
+                        style: TextStyles.caption1.copyWith(
                           color: AppColors.primaryColor,
                           fontWeight: FontWeight.w500,
                         ),

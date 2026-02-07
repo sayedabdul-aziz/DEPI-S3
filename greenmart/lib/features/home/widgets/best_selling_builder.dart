@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greenmart/core/styles/app_colors.dart';
 import 'package:greenmart/core/styles/text_styles.dart';
+import 'package:greenmart/features/home/data/product_model.dart';
 import 'package:greenmart/features/home/widgets/item_card.dart';
 
 class BestSellingBuilder extends StatelessWidget {
@@ -21,7 +22,7 @@ class BestSellingBuilder extends StatelessWidget {
                 onPressed: () {},
                 child: Text(
                   'See All',
-                  style: TextStyles.button.copyWith(
+                  style: TextStyles.caption1.copyWith(
                     color: AppColors.primaryColor,
                   ),
                 ),
@@ -35,12 +36,12 @@ class BestSellingBuilder extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return ItemCard();
+              return ItemCard(model: bestSellingProducts[index]);
             },
             separatorBuilder: (context, index) {
               return SizedBox(width: 20);
             },
-            itemCount: 5,
+            itemCount: bestSellingProducts.length,
           ),
         ),
       ],
