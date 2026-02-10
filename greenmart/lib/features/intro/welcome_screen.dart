@@ -21,7 +21,7 @@ class WelcomeScreen extends StatelessWidget {
             height: double.infinity,
             fit: BoxFit.cover,
           ),
-
+      
           // content
           Positioned(
             bottom: 60,

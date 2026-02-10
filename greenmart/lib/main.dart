@@ -1,7 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:greenmart/core/constants/app_fonts.dart';
-import 'package:greenmart/core/styles/app_colors.dart';
-import 'package:greenmart/core/styles/text_styles.dart';
+import 'package:greenmart/core/styles/themes.dart';
 import 'package:greenmart/features/intro/splash_screen.dart';
 
 void main() {
@@ -15,60 +15,14 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: AppFonts.poppins,
-        scaffoldBackgroundColor: AppColors.backgroundColor,
-        colorScheme: ColorScheme.fromSeed(
-          onSurface: AppColors.blackColor,
-          seedColor: AppColors.primaryColor,
-        ),
-        appBarTheme: AppBarTheme(
-          surfaceTintColor: Colors.transparent,
-          backgroundColor: AppColors.backgroundColor,
-        ),
-        dividerColor: Colors.transparent,
-        dividerTheme: DividerThemeData(color: AppColors.borderColor),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          elevation: 0,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.transparent,
-          selectedItemColor: AppColors.primaryColor,
-          unselectedItemColor: AppColors.greyColor,
-          selectedLabelStyle: TextStyles.caption2.copyWith(
-            fontWeight: FontWeight.w600,
-            height: 1.8,
-          ),
-          unselectedLabelStyle: TextStyles.caption2.copyWith(
-            fontWeight: FontWeight.w600,
-            height: 1.8,
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          fillColor: AppColors.accentColor,
-          filled: true,
-          hintStyle: TextStyles.caption1.copyWith(color: AppColors.greyColor),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
-          ),
-        ),
-      ),
+      theme: AppThemes.lightTheme,
+      builder: (context, child) {
+        return SafeArea(
+          top: false,
+          bottom: Platform.isAndroid,
+          child: child ?? SizedBox.shrink(),
+        );
+      },
       home: SplashScreen(),
     );
   }
