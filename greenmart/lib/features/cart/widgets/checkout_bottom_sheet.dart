@@ -9,6 +9,7 @@ Future<dynamic> showCheckoutBottomSheet(BuildContext context) {
     backgroundColor: AppColors.backgroundColor,
     // isDismissible: false,
     // enableDrag: false,
+    // barrierColor: ,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20),
