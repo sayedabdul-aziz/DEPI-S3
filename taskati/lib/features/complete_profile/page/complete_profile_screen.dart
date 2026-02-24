@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taskati/core/constants/app_assets.dart';
+import 'package:taskati/core/functions/navigations.dart';
+import 'package:taskati/core/services/shared_pref.dart';
 import 'package:taskati/core/styles/app_colors.dart';
 import 'package:taskati/core/widgets/custom_svg_picture.dart';
 import 'package:taskati/core/widgets/custom_text_field.dart';
 import 'package:taskati/core/widgets/dialogs.dart';
 import 'package:taskati/core/widgets/main_button.dart';
 import 'package:taskati/core/widgets/tab_button.dart';
+import 'package:taskati/features/home/page/home_screen.dart';
 
 // use ImagePicker to pick image from camera or gallery
 // extract path from XFile that is returned
@@ -99,8 +102,11 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
         padding: const EdgeInsets.fromLTRB(22, 5, 22, 20),
         child: MainButton(
           text: 'Let\'s Start!',
-          onPressed: () {
+          onPressed: () async {
             if (path != null && nameController.text.isNotEmpty) {
+              await SharedPref.setUserInfo(nameController.text, path!);
+              await SharedPref.setBool(SharedPref.isUploadedKey, true);
+              pushReplacement(context, HomeScreen());
               // navigate to home screen
             } else if (path != null && nameController.text.isEmpty) {
               showErrorDialog(context, 'Please enter your name');
