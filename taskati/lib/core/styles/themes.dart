@@ -23,6 +23,16 @@ abstract class AppThemes {
       ),
       foregroundColor: AppColors.blackColor,
     ),
+    tabBarTheme: TabBarThemeData(
+      dividerColor: Colors.transparent,
+      indicatorSize: TabBarIndicatorSize.tab,
+      labelStyle: TextStyles.caption1.copyWith(
+        fontWeight: FontWeight.w600,
+        color: AppColors.backgroundColor,
+      ),
+      dividerHeight: 0,
+      labelPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+    ),
     dividerColor: Colors.transparent,
     dividerTheme: DividerThemeData(color: AppColors.accentColor),
     inputDecorationTheme: InputDecorationTheme(

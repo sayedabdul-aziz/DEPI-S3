@@ -13,6 +13,10 @@ dependencies:
   gap: ^3.0.1
   lottie: ^3.3.2
   image_picker: ^1.2.1
+  shared_preferences: ^2.5.4
+  percent_indicator: ^4.2.5
+  intl: ^0.20.2
+  date_picker_timeline: ^1.2.7
 
 dev_dependencies:
   flutter_lints: ^6.0.0
