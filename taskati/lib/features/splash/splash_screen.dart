@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:taskati/core/constants/app_assets.dart';
 import 'package:taskati/core/functions/navigations.dart';
-import 'package:taskati/core/services/shared_pref.dart';
+import 'package:taskati/core/services/hive_helper.dart';
 import 'package:taskati/core/styles/app_colors.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 import 'package:taskati/features/complete_profile/page/complete_profile_screen.dart';
@@ -19,7 +19,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    bool isUploaded = SharedPref.getBool(SharedPref.isUploadedKey);
+    bool isUploaded =
+        HiveHelper.getCachedData(HiveHelper.isUploadedKey) == true;
     Future.delayed(const Duration(seconds: 3), () {
       if (isUploaded) {
         pushReplacement(context, const HomeScreen());

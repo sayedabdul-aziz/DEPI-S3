@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:taskati/core/constants/app_assets.dart';
-import 'package:taskati/core/services/shared_pref.dart';
+import 'package:taskati/core/functions/extensions.dart';
+import 'package:taskati/core/functions/navigations.dart';
+import 'package:taskati/core/services/hive_helper.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 
 class HomeHeader extends StatefulWidget {
@@ -24,8 +26,8 @@ class _HomeHeaderState extends State<HomeHeader> {
   }
 
   Future<void> getUserData() async {
-    name = SharedPref.getString(SharedPref.nameKey);
-    path = SharedPref.getString(SharedPref.imageKey);
+    name = HiveHelper.getCachedData(HiveHelper.nameKey);
+    path = HiveHelper.getCachedData(HiveHelper.imageKey);
     setState(() {});
   }
 
@@ -41,15 +43,29 @@ class _HomeHeaderState extends State<HomeHeader> {
                   width: 50,
                   height: 50,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(AppAssets.user, width: 50, height: 50);
+                  },
                 ),
         ),
         Gap(12),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Hello!', style: TextStyles.caption1),
-            Text(name, style: TextStyles.title),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Hello!', style: TextStyles.caption1),
+              10.h,
+              Text(name, style: TextStyles.title),
+            ],
+          ),
+        ),
+        IconButton(
+          onPressed: () {
+            bool isDark = HiveHelper.getCachedThemeMode();
+            HiveHelper.cacheThemeMode(!isDark);
+            setState(() {});
+          },
+          icon: Icon(context.isDark ? Icons.light_mode : Icons.dark_mode),
         ),
       ],
     );
