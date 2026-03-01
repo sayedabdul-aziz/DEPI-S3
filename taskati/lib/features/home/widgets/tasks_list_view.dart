@@ -1,86 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
-import 'package:taskati/core/constants/app_assets.dart';
+import 'package:taskati/core/functions/navigations.dart';
+import 'package:taskati/core/models/task_model.dart';
+import 'package:taskati/core/services/hive_helper.dart';
 import 'package:taskati/core/styles/app_colors.dart';
-import 'package:taskati/core/styles/text_styles.dart';
-import 'package:taskati/core/widgets/custom_svg_picture.dart';
+import 'package:taskati/features/add_task/page/add_task_screen.dart';
+import 'package:taskati/features/home/widgets/task_card.dart';
 
 class TasksListView extends StatelessWidget {
-  const TasksListView({super.key});
+  const TasksListView({super.key, required this.tasks});
+
+  final List<TaskModel> tasks;
 
   @override
   Widget build(BuildContext context) {
+    if (tasks.isEmpty) {
+      return Center(child: Text('No tasks found'));
+    }
     return ListView.separated(
-      itemCount: 5,
+      itemCount: tasks.length,
       separatorBuilder: (BuildContext context, int index) {
         return Gap(12);
       },
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: AppColors.backgroundColor,
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.primaryColor.withValues(alpha: .1),
-                blurRadius: 5,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        TaskModel task = tasks[index];
+        return Slidable(
+          key: UniqueKey(),
+          startActionPane: ActionPane(
+            motion: const ScrollMotion(),
+            dismissible: DismissiblePane(
+              onDismissed: () {
+                HiveHelper.deleteTask(task.id ?? '');
+              },
+            ),
             children: [
-              Text(
-                'Title Of Task',
-                style: TextStyles.caption1.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Gap(6),
-              Text(
-                'Description Description Description Description Description DescriptionDescriptionDescriptionDescription',
-                style: TextStyles.caption2.copyWith(
-                  color: AppColors.secondaryColor,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Gap(12),
-              Row(
-                children: [
-                  CustomSvgPicture(path: AppAssets.timeSvg, width: 20),
-                  Gap(6),
-                  Text(
-                    '10:00 AM - 12:00 PM',
-                    style: TextStyles.caption2.copyWith(
-                      color: AppColors.primary50Color,
-                    ),
-                  ),
-                  Spacer(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 2,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.accentColor,
-                    ),
-                    child: Text(
-                      'In Progress',
-                      style: TextStyles.caption2.copyWith(
-                        color: AppColors.primaryColor,
-                      ),
-                    ),
-                  ),
-                ],
+              SlidableAction(
+                onPressed: (context) {
+                  HiveHelper.deleteTask(task.id ?? '');
+                },
+                backgroundColor: Color(0xFFFE4A49),
+                foregroundColor: Colors.white,
+                icon: Icons.delete,
+                label: 'Delete',
               ),
             ],
           ),
+          endActionPane: ActionPane(
+            motion: ScrollMotion(),
+            children: [
+              SlidableAction(
+                onPressed: (context) {
+                  HiveHelper.cacheTask(
+                    task.id ?? '',
+                    task.copyWith(isCompleted: true),
+                  );
+                },
+                backgroundColor: Color(0xFF7BC043),
+                foregroundColor: Colors.white,
+                icon: Icons.check,
+                label: 'Complete',
+              ),
+              SlidableAction(
+                onPressed: (context) {
+                  pushTo(context, AddEditTaskScreen(task: task));
+                },
+                backgroundColor: AppColors.primary50Color,
+                foregroundColor: Colors.white,
+                icon: Icons.edit,
+                label: 'Edit',
+              ),
+            ],
+          ),
+          child: TaskCard(task: task),
         );
       },
     );
