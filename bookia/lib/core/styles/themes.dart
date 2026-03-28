@@ -45,6 +45,7 @@ abstract class AppThemes {
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
+
       selectedItemColor: AppColors.primaryColor,
       unselectedItemColor: AppColors.greyColor,
       backgroundColor: Colors.transparent,

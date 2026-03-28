@@ -1,6 +1,7 @@
 import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/functions/navigations.dart';
 import 'package:bookia/core/routes/routes.dart';
+import 'package:bookia/core/services/local/shared_pref.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    bool isLoggedIn = SharedPref.getToken().isNotEmpty;
     Future.delayed(const Duration(seconds: 3), () {
-      pushReplacement(context, Routes.welcome);
+      if (isLoggedIn) {
+        pushReplacement(context, Routes.main);
+      } else {
+        pushReplacement(context, Routes.welcome);
+      }
     });
   }
 
@@ -38,3 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
+
+
+// mobile => login => user, token data (Refresh Token)
+// web => login => user, token data
+// call profile api => get user data (Updated) 

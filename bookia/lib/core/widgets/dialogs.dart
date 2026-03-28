@@ -27,7 +27,7 @@ void showLoadingDialog(BuildContext context) {
   showDialog(
     context: context,
     barrierDismissible: false,
-    barrierColor: AppColors.darkColor.withValues(alpha: 0.7),
+    // barrierColor: AppColors.darkColor.withValues(alpha: 0.7),
     builder: (context) => Center(child: Lottie.asset(AppImages.loadingJson)),
   );
 }
