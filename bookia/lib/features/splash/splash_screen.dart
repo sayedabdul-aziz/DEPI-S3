@@ -45,7 +45,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-
 // mobile => login => user, token data (Refresh Token)
 // web => login => user, token data
-// call profile api => get user data (Updated) 
+// call profile api => get user data (Updated)

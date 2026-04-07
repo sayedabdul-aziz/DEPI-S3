@@ -19,7 +19,7 @@ Future<void> main() async {
 // 4- Assets (Json, csv)
 // 5- static data
 
-// UI <=> Cubit <=> Data
+// UI <=> Cubit <=> Data(Repo)
 
 // Layers For Features:
 // Data : (Repositories(Api Integration) - Models(Request, Response))

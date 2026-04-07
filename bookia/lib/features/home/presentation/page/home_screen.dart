@@ -1,5 +1,8 @@
 import 'package:bookia/core/constants/app_images.dart';
+import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
+import 'package:bookia/features/home/presentation/widgets/best_seller_builder.dart';
 import 'package:bookia/features/home/presentation/widgets/home_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -16,11 +19,15 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: CustomSvgPicture(path: AppImages.searchSvg),
-            onPressed: () {},
+            onPressed: () {
+              pushTo(context, Routes.search);
+            },
           ),
         ],
       ),
-      body: Column(children: [Gap(20), HomeSlider()]),
+      body: SingleChildScrollView(
+        child: Column(children: [Gap(20), HomeSlider(), BestSellerBuilder()]),
+      ),
     );
   }
 }

@@ -1,0 +1,103 @@
+import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
+import 'package:bookia/core/styles/colors.dart';
+import 'package:bookia/core/styles/text_styles.dart';
+import 'package:bookia/core/widgets/main_button.dart';
+import 'package:bookia/core/widgets/shimmer/custom_shimmer_widget.dart';
+import 'package:bookia/features/home/data/models/best_seller_response/product.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+
+class BookCard extends StatelessWidget {
+  const BookCard({super.key, required this.book});
+  final Product book;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        pushTo(context, Routes.details, extra: book);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: AppColors.secondaryColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Hero(
+                tag: book.id ?? "",
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: CustomCachedNetworkImage(url: book.image ?? ""),
+                ),
+              ),
+            ),
+            Gap(10),
+            Text(
+              book.name ?? "",
+              style: TextStyles.subtitle2,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('\$${book.priceAfterDiscount}', style: TextStyles.body),
+                MainButton(
+                  minWidth: 70,
+                  minHeight: 30,
+                  bgColor: AppColors.darkColor,
+                  text: 'Buy',
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomCachedNetworkImage extends StatelessWidget {
+  const CustomCachedNetworkImage({
+    super.key,
+    this.height = 100,
+    this.width = double.infinity,
+    required this.url,
+    this.errorWidget,
+    this.fit = BoxFit.cover,
+    this.radius = 10,
+  });
+
+  final double height;
+  final double width;
+  final String url;
+  final BoxFit fit;
+  final Widget? errorWidget;
+  final double radius;
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      imageUrl: url,
+      width: width,
+      height: height,
+      fit: fit,
+      progressIndicatorBuilder: (context, url, downloadProgress) =>
+          CustomShimmerWidget(
+            width: width,
+            height: height,
+            borderRadius: radius,
+          ),
+      errorWidget: (context, url, error) => errorWidget ?? Icon(Icons.error),
+    );
+  }
+}
+
+// slivers

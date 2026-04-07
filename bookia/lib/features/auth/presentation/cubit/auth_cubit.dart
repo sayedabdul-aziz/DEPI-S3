@@ -23,7 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
     if (data != null) {
       emit(AuthSuccessState());
     } else {
-      emit(AuthErrorState());
+      emit(AuthErrorState(message: "Something went wrong, please try again"));
     }
   }
 
@@ -39,7 +39,7 @@ class AuthCubit extends Cubit<AuthState> {
     if (data != null) {
       emit(AuthSuccessState());
     } else {
-      emit(AuthErrorState());
+      emit(AuthErrorState(message: "Something went wrong, please try again"));
     }
   }
 }

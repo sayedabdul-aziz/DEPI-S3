@@ -1,8 +1,12 @@
 import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
+import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bookia/features/home/presentation/page/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Person p = Person()..name = 'John'..display();
 
 class MainAppScreen extends StatefulWidget {
   const MainAppScreen({super.key});
@@ -14,7 +18,10 @@ class MainAppScreen extends StatefulWidget {
 class _MainAppScreenState extends State<MainAppScreen> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    const HomeScreen(),
+    BlocProvider(
+      create: (context) => HomeCubit()..getInitData(),
+      child: const HomeScreen(),
+    ),
     const Center(child: Text('Wishlist')),
     const Center(child: Text('Cart')),
     const Center(child: Text('Profile')),
