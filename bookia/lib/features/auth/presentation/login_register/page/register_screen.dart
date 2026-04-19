@@ -4,11 +4,11 @@ import 'package:bookia/core/functions/validations.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
-import 'package:bookia/core/widgets/inputs/custom_text_form_field.dart';
 import 'package:bookia/core/widgets/dialogs.dart';
+import 'package:bookia/core/widgets/inputs/custom_text_form_field.dart';
+import 'package:bookia/core/widgets/inputs/password_text_form_field.dart';
 import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/core/widgets/my_body_view.dart';
-import 'package:bookia/core/widgets/inputs/password_text_form_field.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_state.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_footer.dart';
@@ -27,7 +27,7 @@ class RegisterScreen extends StatelessWidget {
           pushToBase(context, Routes.main);
         } else if (state is AuthErrorState) {
           pop(context);
-          showErrorDialog(context, 'Something went wrong, please try again');
+          showMyDialog(context, 'Something went wrong, please try again');
         } else if (state is AuthLoadingState) {
           showLoadingDialog(context);
         }

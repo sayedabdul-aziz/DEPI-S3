@@ -5,6 +5,7 @@ import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
 import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/core/widgets/my_body_view.dart';
+import 'package:bookia/features/details/widgets/add_to_wishlist/widget/add_to_wishlist_action.dart';
 import 'package:bookia/features/home/data/models/best_seller_response/product.dart';
 import 'package:bookia/features/home/presentation/widgets/book_card.dart';
 import 'package:flutter/material.dart';
@@ -28,12 +29,7 @@ class DetailsScreen extends StatelessWidget {
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: CustomSvgPicture(path: AppImages.bookmarkSvg),
-            onPressed: () {},
-          ),
-        ],
+        actions: [AddToWishlistAction(productId: book.id ?? 0)],
       ),
       body: _detailsBody(context),
       bottomNavigationBar: Padding(
@@ -102,3 +98,9 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 }
+
+
+// refres Wishlist get/add/remove => (Cache ids as List<int>)
+// check if book is in wishlist => (Cache ids contains book id)
+// toogle UI (add/remove)
+// 

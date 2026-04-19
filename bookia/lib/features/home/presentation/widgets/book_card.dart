@@ -10,14 +10,18 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class BookCard extends StatelessWidget {
-  const BookCard({super.key, required this.book});
+  const BookCard({super.key, required this.book, this.onRemove, this.onRefresh});
   final Product book;
+  final VoidCallback? onRemove;
+  final VoidCallback? onRefresh;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        pushTo(context, Routes.details, extra: book);
+        pushTo(context, Routes.details, extra: book).then((value) {
+          onRefresh?.call();
+        });
       },
       child: Container(
         padding: const EdgeInsets.all(10),
@@ -47,14 +51,22 @@ class BookCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('\$${book.priceAfterDiscount}', style: TextStyles.body),
-                MainButton(
-                  minWidth: 70,
-                  minHeight: 30,
-                  bgColor: AppColors.darkColor,
-                  text: 'Buy',
-                  onPressed: () {},
+                Text(
+                  '\$${book.priceAfterDiscount ?? book.price}',
+                  style: TextStyles.body,
                 ),
+                onRemove != null
+                    ? IconButton(
+                        onPressed: onRemove,
+                        icon: const Icon(Icons.close, size: 20),
+                      )
+                    : MainButton(
+                        minWidth: 70,
+                        minHeight: 30,
+                        bgColor: AppColors.darkColor,
+                        text: 'Buy',
+                        onPressed: () {},
+                      ),
               ],
             ),
           ],

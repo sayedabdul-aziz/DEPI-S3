@@ -5,11 +5,13 @@ class ShimmerGridView extends StatelessWidget {
   const ShimmerGridView({
     super.key,
     required this.itemCount,
-    required this.itemHeight,
+    this.itemHeight = 150,
+    this.itemBuilder,
     required this.crossAxisCount,
     this.mainAxisSpacing = 10,
     this.crossAxisSpacing = 10,
     this.childAspectRatio = 1,
+    this.mainAxisExtent,
     this.padding = EdgeInsets.zero,
     this.shrinkWrap = false,
     this.physics,
@@ -17,10 +19,12 @@ class ShimmerGridView extends StatelessWidget {
 
   final int itemCount;
   final double itemHeight;
+  final Widget Function(BuildContext, int)? itemBuilder;
   final int crossAxisCount;
   final double mainAxisSpacing;
   final double crossAxisSpacing;
   final double childAspectRatio;
+  final double? mainAxisExtent;
 
   final EdgeInsetsGeometry padding;
   final bool shrinkWrap;
@@ -37,14 +41,16 @@ class ShimmerGridView extends StatelessWidget {
         mainAxisSpacing: mainAxisSpacing,
         crossAxisSpacing: crossAxisSpacing,
         childAspectRatio: childAspectRatio,
+        mainAxisExtent: mainAxisExtent,
       ),
       itemCount: itemCount,
       itemBuilder: (context, index) {
-        return CustomShimmerWidget(
-          width: double.infinity,
-          height: itemHeight,
-          borderRadius: 10,
-        );
+        return itemBuilder?.call(context, index) ??
+            CustomShimmerWidget(
+              width: double.infinity,
+              height: itemHeight,
+              borderRadius: 10,
+            );
       },
     );
   }

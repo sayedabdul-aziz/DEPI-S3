@@ -5,7 +5,8 @@ class ShimmerListView extends StatelessWidget {
   const ShimmerListView({
     super.key,
     required this.itemCount,
-    required this.itemHeight,
+    this.itemHeight = 100,
+    this.itemBuilder,
     this.separatorHeight = 10,
     this.padding = EdgeInsets.zero,
     this.shrinkWrap = false,
@@ -14,6 +15,7 @@ class ShimmerListView extends StatelessWidget {
 
   final int itemCount;
   final double itemHeight;
+  final Widget Function(BuildContext, int)? itemBuilder;
   final double separatorHeight;
   final EdgeInsetsGeometry padding;
   final bool shrinkWrap;
@@ -28,11 +30,12 @@ class ShimmerListView extends StatelessWidget {
       itemCount: itemCount,
       separatorBuilder: (context, index) => SizedBox(height: separatorHeight),
       itemBuilder: (context, index) {
-        return CustomShimmerWidget(
-          width: double.infinity,
-          height: itemHeight,
-          borderRadius: 10,
-        );
+        return itemBuilder?.call(context, index) ??
+            CustomShimmerWidget(
+              width: double.infinity,
+              height: itemHeight,
+              borderRadius: 10,
+            );
       },
     );
   }

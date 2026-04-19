@@ -8,6 +8,7 @@ class SharedPref {
 
   static const String kToken = 'token';
   static const String kUser = 'user';
+  static const String kWishlistIds = 'wishlistIds';
 
   static Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
@@ -53,5 +54,13 @@ class SharedPref {
 
   static bool getBool(String key) {
     return prefs.getBool(key) ?? false;
+  }
+
+  static Future<void> saveWishlistIds(List<String> ids) async {
+    await prefs.setStringList(kWishlistIds, ids);
+  }
+
+  static List<String> getWishlistIds() {
+    return prefs.getStringList(kWishlistIds) ?? [];
   }
 }

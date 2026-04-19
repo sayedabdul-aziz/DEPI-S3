@@ -7,8 +7,8 @@ void pushReplacement(BuildContext context, String routeName, {Object? extra}) {
   context.pushReplacement(routeName, extra: extra);
 }
 
-void pushTo(BuildContext context, String routeName, {Object? extra}) {
-  context.push(routeName, extra: extra);
+Future<void> pushTo(BuildContext context, String routeName, {Object? extra}) {
+  return context.push(routeName, extra: extra);
 }
 
 void pushToBase(BuildContext context, String routeName, {Object? extra}) {

@@ -1,5 +1,6 @@
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/my_body_view.dart';
+import 'package:bookia/core/widgets/shimmer/book_card_shimmer.dart';
 import 'package:bookia/core/widgets/shimmer/shimmer_grid_view.dart';
 import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bookia/features/home/presentation/cubit/home_state.dart';
@@ -25,11 +26,11 @@ class BestSellerBuilder extends StatelessWidget {
                 Gap(20),
                 ShimmerGridView(
                   itemCount: 6,
-                  itemHeight: 250,
                   crossAxisCount: 2,
                   childAspectRatio: 0.62,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => const BookCardShimmer(),
                 ),
               ],
             ),
