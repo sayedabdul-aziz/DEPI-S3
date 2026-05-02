@@ -24,7 +24,7 @@ class WishlistScreen extends StatelessWidget {
           builder: (context, state) {
             var books = context.read<WishlistCubit>().wishlist;
             if (state is! WishlistSuccessState) {
-              return const ShimmerGridView(
+              return ShimmerGridView(
                 itemCount: 6,
                 crossAxisCount: 2,
                 mainAxisSpacing: 10,

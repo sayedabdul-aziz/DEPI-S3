@@ -11,8 +11,9 @@ class BookCardShimmer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: AppColors.secondaryColor,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.borderColor),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,23 +26,13 @@ class BookCardShimmer extends StatelessWidget {
             ),
           ),
           const Gap(10),
-          const CustomShimmerWidget(
-            width: 100,
-            height: 15,
-          ),
+          const CustomShimmerWidget(width: 100, height: 15),
           const Gap(10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              CustomShimmerWidget(
-                width: 50,
-                height: 15,
-              ),
-              CustomShimmerWidget(
-                width: 70,
-                height: 30,
-                borderRadius: 8,
-              ),
+              CustomShimmerWidget(width: 50, height: 15),
+              CustomShimmerWidget(width: 70, height: 30, borderRadius: 8),
             ],
           ),
         ],

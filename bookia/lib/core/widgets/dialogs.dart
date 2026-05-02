@@ -36,7 +36,7 @@ void showMyDialog(
       backgroundColor: color,
       content: Row(
         children: [
-          Icon(icon, color: AppColors.backgroundColor, size: 20),
+          Icon(icon, color: AppColors.white, size: 20),
           const Gap(10),
           Text(message),
         ],

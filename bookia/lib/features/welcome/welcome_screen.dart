@@ -48,7 +48,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Gap(15),
                 MainButton(
                   borderColor: AppColors.darkColor,
-                  bgColor: AppColors.backgroundColor,
+                  bgColor: AppColors.white,
                   textColor: AppColors.darkColor,
                   text: 'Register',
                   onPressed: () {

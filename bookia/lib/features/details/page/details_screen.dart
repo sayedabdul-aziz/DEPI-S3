@@ -3,8 +3,8 @@ import 'package:bookia/core/functions/navigations.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
-import 'package:bookia/core/widgets/main_button.dart';
 import 'package:bookia/core/widgets/my_body_view.dart';
+import 'package:bookia/features/details/widgets/add_to_cart/add_cart_button.dart';
 import 'package:bookia/features/details/widgets/add_to_wishlist/widget/add_to_wishlist_action.dart';
 import 'package:bookia/features/home/data/models/best_seller_response/product.dart';
 import 'package:bookia/features/home/presentation/widgets/book_card.dart';
@@ -38,12 +38,7 @@ class DetailsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('\$${book.price}', style: TextStyles.title),
-            MainButton(
-              minWidth: 200,
-              bgColor: AppColors.darkColor,
-              text: 'Add to cart',
-              onPressed: () {},
-            ),
+            AddCartButton(book: book),
           ],
         ),
       ),
@@ -98,9 +93,3 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 }
-
-
-// refres Wishlist get/add/remove => (Cache ids as List<int>)
-// check if book is in wishlist => (Cache ids contains book id)
-// toogle UI (add/remove)
-// 

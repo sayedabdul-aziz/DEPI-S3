@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 abstract class AppThemes {
   static ThemeData get lightTheme => ThemeData(
     fontFamily: AppFonts.dMSerif,
-    scaffoldBackgroundColor: AppColors.backgroundColor,
+    scaffoldBackgroundColor: AppColors.accentColor,
     appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.accentColor,
       elevation: 0,
       centerTitle: true,
       surfaceTintColor: Colors.transparent,
@@ -24,7 +24,7 @@ abstract class AppThemes {
     ),
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: TextStyles.body.copyWith(color: AppColors.greyColor),
-      fillColor: AppColors.accentColor,
+      fillColor: AppColors.white,
       filled: true,
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),

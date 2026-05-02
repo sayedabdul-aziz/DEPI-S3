@@ -10,7 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class BookCard extends StatelessWidget {
-  const BookCard({super.key, required this.book, this.onRemove, this.onRefresh});
+  const BookCard({
+    super.key,
+    required this.book,
+    this.onRemove,
+    this.onRefresh,
+  });
   final Product book;
   final VoidCallback? onRemove;
   final VoidCallback? onRefresh;
@@ -26,8 +31,9 @@ class BookCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: AppColors.secondaryColor,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: AppColors.borderColor),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
