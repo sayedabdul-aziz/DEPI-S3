@@ -74,3 +74,22 @@ Future<void> main() async {
 // ux writing (PM)
 
 // Firebase ()
+
+// Backend services (Supabase, Firebase)
+// Auth, Database and Storage
+
+// MVP => APPLICATION(some features) => FEEDBACK
+// low requests and without media (LMS)
+
+// Byte+ => Supabase +20 dollar. (Potin) => Backend
+
+// Supabase => SQL => Tables (User,Product, Cart) => Managed
+// Firebase => NoSQL => Collections (User,Product, Cart) => Unmanaged
+
+// Migration => Supabase => SqlServer
+
+//Backend Frameworks
+// ASP.NET (C#) => SqlServer  => Tables
+// Laravel (PHP) => MySql  => Tables
+// Django (Python) => MySql  => Tables
+// Spring (Java) => MySql / Postgree  => Tables
