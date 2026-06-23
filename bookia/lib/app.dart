@@ -34,6 +34,9 @@ class MainApp extends StatelessWidget {
 }
 
 
+// flutter pub run easy_localization:generate -S assets/translations -f keys -o locale_keys.g.dart
+
+
 
 // Feature First
 
