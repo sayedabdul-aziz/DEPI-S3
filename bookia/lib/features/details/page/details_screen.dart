@@ -1,4 +1,5 @@
 import 'package:bookia/core/constants/app_images.dart';
+import 'package:bookia/core/functions/extenstion.dart';
 import 'package:bookia/core/functions/navigations.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
@@ -21,14 +22,7 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            GestureDetector(
-              onTap: () => pop(context),
-              child: CustomSvgPicture(path: AppImages.backSvg),
-            ),
-          ],
-        ),
+        title: Row(children: [MyBackButton()]),
         actions: [AddToWishlistAction(productId: book.id ?? 0)],
       ),
       body: _detailsBody(context),
@@ -90,6 +84,23 @@ class DetailsScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class MyBackButton extends StatelessWidget {
+  const MyBackButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => pop(context),
+      child: context.isArabic
+          ? Transform.rotate(
+              angle: 3.14,
+              child: CustomSvgPicture(path: AppImages.backSvg),
+            )
+          : CustomSvgPicture(path: AppImages.backSvg),
     );
   }
 }

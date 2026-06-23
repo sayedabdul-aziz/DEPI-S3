@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -13,11 +14,13 @@ class CustomTextFormField extends StatelessWidget {
     this.onChange,
     this.textInputAction,
     this.controller,
+    this.suffixIcon,
   });
   final String? hintText;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final bool readOnly;
   final Function()? onTap;
   final Function(String)? onChange;
@@ -35,9 +38,16 @@ class CustomTextFormField extends StatelessWidget {
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },
+      inputFormatters: [
+        if (keyboardType == TextInputType.phone) ...[
+          LengthLimitingTextInputFormatter(11),
+          FilteringTextInputFormatter.digitsOnly,
+        ],
+      ],
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
         // labelText: 'Email',
       ),
       validator: validator,

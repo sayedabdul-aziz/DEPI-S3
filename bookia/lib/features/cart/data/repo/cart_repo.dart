@@ -76,4 +76,21 @@ class CartRepo {
       return null;
     }
   }
+
+  static Future<bool> checkout() async {
+    try {
+      var response = await DioProvider.get(
+        endpoint: Apis.checkout,
+        headers: {'Authorization': 'Bearer ${SharedPref.getToken()}'},
+      );
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
 }

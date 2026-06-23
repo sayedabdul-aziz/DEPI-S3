@@ -20,12 +20,21 @@ class WishlistCubit extends Cubit<WishlistState> {
   }
 
   Future<void> removeFromWishlist(int productId) async {
-    emit(WishlistLoadingState());
+    // OFFLINE FIRST
+    // get item that we need to remove
+    var item = wishlist.firstWhere((element) => element.id == productId);
+    // remove it from wishlist => instant
+    wishlist.remove(item);
+    // update the ui => instant
+    emit(WishlistSuccessState());
+    // send request to server => normal
     var response = await WishListRepo.removeFromWishlist(productId);
+    // if request failed => undo
     if (response != null && response.data != null) {
       wishlist = response.data?.data ?? [];
       emit(WishlistSuccessState(message: response.message ?? ""));
     } else {
+      wishlist.add(item);
       emit(WishlistErrorState(error: "Failed to update wishlist"));
     }
   }

@@ -66,7 +66,7 @@ class CartItemWidget extends StatelessWidget {
 
                 // price
                 Text(
-                  '\$${item.itemProductPrice}',
+                  '\$${item.itemProductPriceAfterDiscount?.ceil()}',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyles.subtitle2,

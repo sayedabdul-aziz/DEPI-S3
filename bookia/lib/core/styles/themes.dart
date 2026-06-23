@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 abstract class AppThemes {
   static ThemeData get lightTheme => ThemeData(
     fontFamily: AppFonts.dMSerif,
-    scaffoldBackgroundColor: AppColors.accentColor,
+    scaffoldBackgroundColor: AppColors.backgroundColor,
     appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.accentColor,
+      backgroundColor: AppColors.backgroundColor,
       elevation: 0,
       centerTitle: true,
       surfaceTintColor: Colors.transparent,

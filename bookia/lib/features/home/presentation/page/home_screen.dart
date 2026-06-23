@@ -1,11 +1,12 @@
 import 'package:bookia/core/constants/app_images.dart';
+import 'package:bookia/core/functions/extenstion.dart';
 import 'package:bookia/core/functions/navigations.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/widgets/custom_svg_picture.dart';
 import 'package:bookia/features/home/presentation/widgets/best_seller_builder.dart';
 import 'package:bookia/features/home/presentation/widgets/home_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,6 +19,12 @@ class HomeScreen extends StatelessWidget {
         title: CustomSvgPicture(path: AppImages.logoSvg, height: 30),
         actions: [
           IconButton(
+            icon: Icon(Icons.language),
+            onPressed: () {
+              context.setLocale(context.isArabic ? Locale('en') : Locale('ar'));
+            },
+          ),
+          IconButton(
             icon: CustomSvgPicture(path: AppImages.searchSvg),
             onPressed: () {
               pushTo(context, Routes.search);
@@ -26,7 +33,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(children: [Gap(20), HomeSlider(), BestSellerBuilder()]),
+        child: Column(children: [20.h, HomeSlider(), BestSellerBuilder()]),
       ),
     );
   }

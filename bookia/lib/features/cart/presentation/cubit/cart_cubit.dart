@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:bookia/features/cart/data/models/cart_response/cart_item.dart';
 import 'package:bookia/features/cart/data/repo/cart_repo.dart';
 import 'package:bookia/features/cart/presentation/cubit/cart_state.dart';
+import 'package:bookia/features/checkout/data/models/governorate_response/datum.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartCubit extends Cubit<CartState> {
@@ -10,6 +9,7 @@ class CartCubit extends Cubit<CartState> {
 
   String? total;
   List<CartItem> cartItems = [];
+  List<Governorate> governorates = [];
 
   Future<void> getCart() async {
     emit(CartLoadingState());
@@ -35,8 +35,8 @@ class CartCubit extends Cubit<CartState> {
     var item = cartItems.firstWhere((element) => element.itemId == cartItemId);
     cartItems.remove(item);
     if (total != null) {
-      total = (double.tryParse(total!) ?? 0.0 - (item.itemTotal ?? 0.0))
-          .toString();
+      total = ((double.tryParse(total!) ?? 0.0) - (item.itemTotal ?? 0.0))
+          .toStringAsFixed(2);
     }
     emit(CartLoadedState());
     var data = await CartRepo.removeFromCart(cartItemId);
@@ -47,8 +47,8 @@ class CartCubit extends Cubit<CartState> {
     } else {
       cartItems.add(item);
       if (total != null) {
-        total = (double.tryParse(total!) ?? 0.0 + (item.itemTotal ?? 0.0))
-            .toString();
+        total = ((double.tryParse(total!) ?? 0.0) + (item.itemTotal ?? 0.0))
+            .toStringAsFixed(2);
       }
       emit(CartErrorState('Something went Wrong'));
     }
@@ -65,8 +65,7 @@ class CartCubit extends Cubit<CartState> {
 
     // update total => instant
     double oldTotal = item.itemTotal ?? 0;
-    double newTotal =
-        quantity * (double.tryParse(item.itemProductPrice ?? '0') ?? 0.0);
+    double newTotal = quantity * (item.itemProductPriceAfterDiscount ?? 0.0);
 
     item.itemTotal = newTotal;
 
@@ -75,11 +74,6 @@ class CartCubit extends Cubit<CartState> {
       total = ((double.tryParse(total!) ?? 0.0) - oldTotal + newTotal)
           .toStringAsFixed(2);
     }
-
-    log("item.itemProductPrice: ${item.itemProductPrice}");
-    log("old total: $oldTotal");
-    log("new total: $newTotal");
-    log("total: $total");
 
     emit(CartLoadedState());
     var data = await CartRepo.updateCart(cartItemId, quantity);
@@ -95,6 +89,16 @@ class CartCubit extends Cubit<CartState> {
         total = ((double.tryParse(total!) ?? 0.0) + oldTotal - newTotal)
             .toStringAsFixed(2);
       }
+      emit(CartErrorState('Something went Wrong'));
+    }
+  }
+
+  Future<void> checkout() async {
+    emit(CheckoutLoadingState());
+    var isSuccess = await CartRepo.checkout();
+    if (isSuccess) {
+      emit(CheckoutSuccessState());
+    } else {
       emit(CartErrorState('Something went Wrong'));
     }
   }

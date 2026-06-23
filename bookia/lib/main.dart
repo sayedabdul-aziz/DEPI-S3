@@ -1,14 +1,29 @@
 import 'package:bookia/app.dart';
 import 'package:bookia/core/services/apis/dio_provider.dart';
 import 'package:bookia/core/services/local/shared_pref.dart';
+import 'package:bookia/core/utils/bloc_observer.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   DioProvider.init();
   await SharedPref.init();
-  runApp(DevicePreview(enabled: false, builder: (context) => const MainApp()));
+  Bloc.observer = MyBlocObserver();
+  runApp(
+    DevicePreview(
+      enabled: false,
+      builder: (context) => EasyLocalization(
+        supportedLocales: [Locale('ar'), Locale('en')],
+        path: 'assets/translations',
+        fallbackLocale: Locale('en'),
+        child: const MainApp(),
+      ),
+    ),
+  );
 }
 
 // data resources :
@@ -34,5 +49,28 @@ Future<void> main() async {
 // 6- Response (Status Code, Body)
 // 7- Authorization => Bearer Token
 
-// Response (Json) ==> Parse to Model
+// Response (Json) ==> Parse to Model Object
 // FromJson => NamedConstructor (Json) => Model
+
+// Bookia
+// - UI
+// - State Management
+// - Apis (Dio)
+// - Local Storage (Shared Preferences)
+
+// - Apis Error Handling (dartZ)
+// - Clean Architecture (Data / Domain / Presentation)
+// - Dependency Injection (GetIt)
+
+// Localization
+// 1) translations (Ar, En , Fr) ==> Static / Dynamic
+// 2) Widget Layout (RTL , LTR)
+// 3) dynamic texts (object response (nameAr, nameEn), header {"locale":"ar"})
+
+// Packages : FlutterLocalizations, EasyLocalization
+
+// ex: You have 5 books in cart;
+
+// ux writing (PM)
+
+// Firebase ()

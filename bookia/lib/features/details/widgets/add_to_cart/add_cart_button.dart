@@ -43,6 +43,5 @@ class AddCartButton extends StatelessWidget {
   }
 }
 
-
 // label or can remove for cart or update quantity ==> Caching
-// add to cart => normal button 
+// add to cart => normal button
