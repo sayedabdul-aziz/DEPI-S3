@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "246238633333",
+    "project_id": "se7ety-s3",
+    "storage_bucket": "se7ety-s3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246238633333:android:48d0be2cf8623b6f3d873c",
+        "android_client_info": {
+          "package_name": "com.depi.se7ety"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXLPjXb2CGCEKWxQygszqOS7kdenZRRYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
