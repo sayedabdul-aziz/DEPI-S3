@@ -1,72 +1,43 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:se7ety/features/auth/data/models/doctor_model.dart';
-// import 'package:se7ety/features/auth/data/models/patient_model.dart';
-// import 'package:se7ety/features/patient/booking/data/appointment_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:se7ety/features/auth/data/models/doctor_model.dart';
+import 'package:se7ety/features/auth/data/models/patient_model.dart';
 
-// class FirestoreServices {
-//   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-//   static final CollectionReference _patientCollection = _firestore.collection(
-//     'patient',
-//   );
-//   static final CollectionReference _doctorCollection = _firestore.collection(
-//     'doctor',
-//   );
-//   static final CollectionReference _appointmentCollection = _firestore
-//       .collection('appointment');
+class FirestoreServices {
+  static final firestore = FirebaseFirestore.instance;
+  static final CollectionReference patient = firestore.collection('patient');
+  static final CollectionReference doctor = firestore.collection('doctor');
 
-//   static Future<void> createDoctor(DoctorModel doctor) {
-//     return _doctorCollection.doc(doctor.uid).set(doctor.toJson());
-//   }
+  static Future<void> createPatient(PatientModel model) async {
+    await patient.doc(model.uid).set(model.toJson());
+  }
 
-//   static  Future<void> createPatient(PatientModel patient) {
-//     return _patientCollection.doc(patient.uid).set(patient.toJson());
-//   }
+  static Future<void> createDoctor(DoctorModel model) async {
+    await doctor.doc(model.uid).set(model.toJson());
+  }
 
-//   static  Future<void> updateDoctor(DoctorModel doctor) {
-//     return _doctorCollection.doc(doctor.uid).update(doctor.toUpdateData());
-//   }
+  static Future<void> updateDoctor(DoctorModel model) async {
+    await doctor.doc(model.uid).update(model.toUpdateData());
+  }
+}
 
-//   static Future<DocumentSnapshot<Object?>> getDoctorById(String id) {
-//     return _doctorCollection.doc(id).get();
-//   }
 
-//   static Future<QuerySnapshot<Object?>> sortDoctorsByRating() {
-//     return _doctorCollection.orderBy('rating', descending: true).get();
-//   }
 
-//   static Future<QuerySnapshot<Object?>> filterDoctorsBySpecialization(
-//     String specialization,
-//   ) {
-//     return _doctorCollection
-//         .where('specialization', isEqualTo: specialization)
-//         .get();
-//   }
 
-//   static Future<QuerySnapshot<Object?>> getDoctorsByName(String searchKey) {
-//     return _doctorCollection.orderBy("name").startAt([searchKey]).endAt([
-//       '$searchKey\uf8ff',
-//     ]).get();
-//   }
+// Firestore (Collections => Documents => Data)
 
-//   static Future<void> createAppointment(AppointmentModel appointmentData) {
-//     return _appointmentCollection.doc().set(appointmentData.toJson());
-//   }
+// Specific Doc => (Collection, Doc ID) => Data {}  - Profile
 
-//   static Future<QuerySnapshot<Object?>> getAppointmentsByPatientId() {
-//     var userId = FirebaseAuth.instance.currentUser!.uid;
-//     return _appointmentCollection
-//         .where('patientID', isEqualTo: userId)
-//         .orderBy("date")
-//         .get();
-//   }
+// All Doc => collection.get() , collection.snapshots()
 
-//   static Future<QuerySnapshot<Object?>> getAppointmentsByDoctorId() {
-//     var userId = FirebaseAuth.instance.currentUser!.uid;
-//     return _appointmentCollection.where('doctorID', isEqualTo: userId).get();
-//   }
+// Sorting => collection.orderBy("field", descending: true).get()
 
-//   static Future<void> deleteAppointment(String docID) {
-//     return _appointmentCollection.doc(docID).delete();
-//   }
-// }
+// Filter => collection.where("field", isEqualTo: value).get()
+
+// Search => collection.startAt(["value"]).endAt(["value"]).get()
+
+// limit and Pagination => collection.orderBy("field", descending: true).limit(20).get()
+
+
+//! delete Specific doc => (Collection, Doc ID)
+
+//! update Specific doc => (Collection, Doc ID, Data)

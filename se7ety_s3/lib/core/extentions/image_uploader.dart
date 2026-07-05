@@ -1,49 +1,27 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 Future<String?> uploadImageToCloudinary(File imageFile) async {
-  // 1. Create the upload URL
-  final url = Uri.parse(
-    'https://api.cloudinary.com/v1_1/dup0vzih4/image/upload',
-  );
-
-  // 2. Create a new multipart request
-  final request = http.MultipartRequest('POST', url);
-
-  // 3. Add the upload preset
-  request.fields['upload_preset'] = "se7ety";
-
-  // 4. Add the file to the request
-  request.files.add(
-    await http.MultipartFile.fromPath(
-      'file', // This 'file' key is required by Cloudinary
-      imageFile.path,
-    ),
-  );
-
   try {
-    // 5. Send the request
-    final response = await request.send();
+    final response = await Dio().post(
+      'https://api.cloudinary.com/v1_1/dup0vzih4/image/upload',
+      data: FormData.fromMap({
+        'upload_preset': 'se7ety',
+        'file': await MultipartFile.fromFile(imageFile.path),
+      }),
+    );
 
     if (response.statusCode == 200) {
-      // 6. Read and decode the response
-      final responseBody = await response.stream.bytesToString();
-      final responseData = json.decode(responseBody);
-
-      // 7. Return the secure URL
-      log('responseData: $responseData');
-      return responseData['secure_url'];
+      log('responseData: ${response.data}');
+      return response.data['secure_url'];
     } else {
-      print('Failed to upload image. Status code: ${response.statusCode}');
-      final errorBody = await response.stream.bytesToString();
-      print('Error response: $errorBody');
+      log('Failed to upload image. Status code: ${response.statusCode}');
       return null;
     }
-  } catch (e) {
-    print('Error uploading image: $e');
+  } on DioException catch (e) {
+    log('Error uploading image: ${e.message}');
     return null;
   }
 }
