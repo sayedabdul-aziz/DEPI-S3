@@ -27,6 +27,7 @@ class UpdateDoctorProfileCubit extends Cubit<UpdateDoctorProfileState> {
     emit(UpdateDoctorProfileLoadingState());
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
+      // compress image // reduce size with good quality
       final imageUrl = await uploadImageToCloudinary(imageFile) ?? '';
 
       final doctor = DoctorModel(
@@ -41,7 +42,7 @@ class UpdateDoctorProfileCubit extends Cubit<UpdateDoctorProfileState> {
         phone2: phone2Controller.text.isNotEmpty ? phone2Controller.text : null,
       );
 
-      await FirestoreServices.updateDoctor(doctor);
+      await FirestoreProvider.updateDoctor(doctor);
       emit(UpdateDoctorProfileSuccessState());
     } catch (e) {
       emit(UpdateDoctorProfileErrorState(message: 'حدث خطأ ما'));

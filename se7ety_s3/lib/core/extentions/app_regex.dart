@@ -4,4 +4,10 @@ class AppRegex {
     RegExp regex = RegExp(emailPattern);
     return regex.hasMatch(email);
   }
+
+  static bool isEgyptianPhoneValid(String phone) {
+    String phonePattern = r'^01[0125][0-9]{8}$';
+    RegExp regex = RegExp(phonePattern);
+    return regex.hasMatch(phone);
+  }
 }

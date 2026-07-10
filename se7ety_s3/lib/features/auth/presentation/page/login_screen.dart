@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -42,8 +40,15 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is AuthLoadingState) {
             showLoadingDialog(context);
           } else if (state is AuthSuccessState) {
-            pop(context);
-            log("success");
+            if (state.userType == UserTypeEnum.doctor) {
+              if (state.isCompleteProfile == true) {
+                // push to doctor main
+              } else {
+                pushToBase(context, Routes.doctorRegistration);
+              }
+            } else {
+              pushToBase(context, Routes.mainPatient);
+            }
           } else if (state is AuthErrorState) {
             pop(context);
             showMyDialog(context, state.message);

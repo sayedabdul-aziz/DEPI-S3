@@ -42,7 +42,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           } else if (state is AuthSuccessState) {
             if (state.userType == UserTypeEnum.doctor) {
               pushToBase(context, Routes.doctorRegistration);
-            } else {}
+            } else {
+              pushToBase(context, Routes.mainPatient);
+            }
           } else if (state is AuthErrorState) {
             pop(context);
             showMyDialog(context, state.message);

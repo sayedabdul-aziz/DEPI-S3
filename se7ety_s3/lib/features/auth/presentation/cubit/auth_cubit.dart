@@ -32,7 +32,32 @@ class AuthCubit extends Cubit<AuthState> {
 
       UserTypeEnum userType = UserTypeEnum.fromValue(user?.photoURL ?? "");
 
-      emit(AuthSuccessState(userType));
+      SharedPref.setUserData(
+        UserModel(
+          uid: user?.uid,
+          name: nameController.text,
+          email: emailController.text,
+          role: userType.value,
+        ),
+      );
+
+      bool isCompleteProfile = false;
+
+      if (userType == UserTypeEnum.doctor) {
+        FirestoreProvider.getDoctorById(user!.uid).then((value) {
+          var doctor = DoctorModel.fromJson(
+            value.data() as Map<String, dynamic>,
+          );
+          isCompleteProfile = doctor.specialization != null;
+        });
+      }
+
+      emit(
+        AuthSuccessState(
+          userType: userType,
+          isCompleteProfile: isCompleteProfile,
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         emit(AuthErrorState(message: "المستخدم غير موجود"));
@@ -73,14 +98,14 @@ class AuthCubit extends Cubit<AuthState> {
           rating: 3,
         );
 
-        await FirestoreServices.createDoctor(doctor);
+        await FirestoreProvider.createDoctor(doctor);
       } else {
         var patient = PatientModel(
           uid: user?.uid,
           name: nameController.text,
           email: emailController.text,
         );
-        await FirestoreServices.createPatient(patient);
+        await FirestoreProvider.createPatient(patient);
       }
 
       SharedPref.setUserData(
@@ -92,7 +117,7 @@ class AuthCubit extends Cubit<AuthState> {
         ),
       );
 
-      emit(AuthSuccessState(userType));
+      emit(AuthSuccessState(userType: userType));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         emit(AuthErrorState(message: "كلمة المرور ضعيفة"));

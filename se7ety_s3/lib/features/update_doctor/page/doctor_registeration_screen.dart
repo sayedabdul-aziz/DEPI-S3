@@ -2,12 +2,14 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:se7ety/components/buttons/main_button.dart';
 import 'package:se7ety/components/inputs/custom_text_field.dart';
 import 'package:se7ety/core/constants/app_images.dart';
+import 'package:se7ety/core/extentions/app_regex.dart';
 import 'package:se7ety/core/extentions/dialogs.dart';
 import 'package:se7ety/core/routes/navigation.dart';
 import 'package:se7ety/core/utils/colors.dart';
@@ -329,9 +331,18 @@ class _UpdateDoctorProfileScreenState extends State<UpdateDoctorProfileScreen> {
         CustomTextField(
           controller: cubit.phone1Controller,
           keyboardType: TextInputType.number,
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+            LengthLimitingTextInputFormatter(11),
+          ],
+
           hintText: '+20xxxxxxxxxx',
           validator: (value) {
-            if (value!.isEmpty) return 'من فضلك ادخل الرقم';
+            if (value!.isEmpty) {
+              return 'من فضلك ادخل الرقم';
+            } else if (AppRegex.isEgyptianPhoneValid(value) == false) {
+              return 'من فضلك ادخل رقم صحيح';
+            }
             return null;
           },
         ),
