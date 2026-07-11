@@ -26,6 +26,10 @@ class SharedPref {
     return UserModel.fromJson(objToJson);
   }
 
+  static void removeUserData() {
+    remove(_kUserData);
+  }
+
   static void setOnboarding() {
     setData(_kOnboarding, true);
   }
