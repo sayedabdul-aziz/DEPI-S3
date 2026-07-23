@@ -1,21 +1,17 @@
-import 'data.dart';
+import 'user.dart';
 
 class AuthResponse {
-  Data? data;
-  String? message;
-  List<dynamic>? error;
-  int? status;
+  User? user;
+  String? token;
 
-  AuthResponse({this.data, this.message, this.error, this.status});
+  AuthResponse({this.user, this.token});
 
-  factory AuthResponse.fromJson(Map<String, dynamic> json) {
-    return AuthResponse(
-      data: json['data'] == null
-          ? null
-          : Data.fromJson(json['data'] as Map<String, dynamic>),
-      message: json['message'] as String?,
-      error: json['error'] as List<dynamic>?,
-      status: json['status'] as int?,
-    );
-  }
+  factory AuthResponse.fromJson(Map<String, dynamic> json) => AuthResponse(
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+    token: json['token'] as String?,
+  );
+
+  Map<String, dynamic> toJson() => {'user': user?.toJson(), 'token': token};
 }

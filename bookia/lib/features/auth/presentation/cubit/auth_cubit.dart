@@ -1,5 +1,11 @@
+import 'dart:developer';
+
+import 'package:bookia/core/di/service_locator.dart';
+import 'package:bookia/features/auth/data/data_source/auth_data_source.dart';
 import 'package:bookia/features/auth/data/models/auth_params.dart';
-import 'package:bookia/features/auth/data/repository/auth_repo.dart';
+import 'package:bookia/features/auth/data/repository/auth_repo_impl.dart';
+import 'package:bookia/features/auth/domain/usecase/login_usecase.dart';
+import 'package:bookia/features/auth/domain/usecase/register_usecase.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,18 +19,28 @@ class AuthCubit extends Cubit<AuthState> {
   final passwordController = TextEditingController();
   final passwordConfirmationController = TextEditingController();
 
+  final loginUseCase = locator<LoginUseCase>();
+  final registerUseCase = RegisterUseCase(
+    AuthRepoImpl(AuthRemoteDataSourceImpl()),
+  );
+
   Future<void> login() async {
     emit(AuthLoadingState());
     var params = AuthParams(
       email: emailController.text,
       password: passwordController.text,
     );
-    var data = await AuthRepo.login(params);
-    if (data != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(message: "Something went wrong, please try again"));
-    }
+    var data = await loginUseCase.call(params);
+
+    data.fold(
+      (l) {
+        log(l.message.toString());
+        emit(AuthErrorState(message: l.message ?? ''));
+      },
+      (r) {
+        emit(AuthSuccessState());
+      },
+    );
   }
 
   Future<void> register() async {
@@ -35,11 +51,16 @@ class AuthCubit extends Cubit<AuthState> {
       password: passwordController.text,
       passwordConfirmation: passwordConfirmationController.text,
     );
-    var data = await AuthRepo.register(params);
-    if (data != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(message: "Something went wrong, please try again"));
-    }
+    var data = await registerUseCase.call(params);
+
+    data.fold(
+      (l) {
+        log(l.message.toString());
+        emit(AuthErrorState(message: l.message ?? ''));
+      },
+      (r) {
+        emit(AuthSuccessState());
+      },
+    );
   }
 }

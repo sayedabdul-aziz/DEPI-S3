@@ -3,7 +3,7 @@ class User {
   String? name;
   String? email;
   String? address;
-  dynamic city;
+  String? city;
   String? phone;
   bool? emailVerified;
   String? image;
@@ -24,7 +24,7 @@ class User {
     name: json['name'] as String?,
     email: json['email'] as String?,
     address: json['address'] as String?,
-    city: json['city'] as dynamic,
+    city: json['city'] as String?,
     phone: json['phone'] as String?,
     emailVerified: json['email_verified'] as bool?,
     image: json['image'] as String?,

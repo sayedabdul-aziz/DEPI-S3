@@ -27,7 +27,7 @@ class RegisterScreen extends StatelessWidget {
           pushToBase(context, Routes.main);
         } else if (state is AuthErrorState) {
           pop(context);
-          showMyDialog(context, 'Something went wrong, please try again');
+          showMyDialog(context, state.message);
         } else if (state is AuthLoadingState) {
           showLoadingDialog(context);
         }

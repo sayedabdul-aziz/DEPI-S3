@@ -14,9 +14,6 @@ extension SpacingValue on num {
   Widget get w => SizedBox(width: toDouble());
 }
 
-
-
-
 // isArabic(context) => Function
 // context.isArabic => Extension
 

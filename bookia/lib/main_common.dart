@@ -1,17 +1,21 @@
 import 'package:bookia/app.dart';
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/services/apis/dio_provider.dart';
 import 'package:bookia/core/services/local/shared_pref.dart';
 import 'package:bookia/core/utils/bloc_observer.dart';
+import 'package:bookia/flavor_env.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-Future<void> main() async {
+Future<void> mainCommon(FlavorEnv env) async {
+  FlavorEnvironment.setCurrentEnvironment(env);
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   DioProvider.init();
   await SharedPref.init();
+  setupServiceLocator();
   Bloc.observer = MyBlocObserver();
   runApp(
     DevicePreview(

@@ -19,9 +19,7 @@ void pop(BuildContext context) {
   context.pop();
 }
 
-
 // BRIDGE
-
 
 // A > B > D
 // B > D
